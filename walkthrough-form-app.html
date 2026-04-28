@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#FAF8F3">
+<title>Verandah · On-Site Walkthrough</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #008C82;
+    --teal-deep: #005F58;
+    --teal-mist: #E8F3F2;
+    --gold: #D4AF50;
+    --gold-soft: #F5EBD0;
+    --gold-deep: #7A5E1A;
+    --ink: #1A2E2C;
+    --slate: #4A5D5B;
+    --mist: #8B9A98;
+    --paper: #FAF8F3;
+    --paper-warm: #F3EFE4;
+    --line: #E2DED2;
+    --line-soft: #EFEBE0;
+    --alert: #B8572B;
+    --success: #4A7C59;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior-y: contain;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none;
+    opacity: 0.025; z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 16px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ============ HEADER ============ */
+  header.top {
+    padding: 24px 0 20px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 12px;
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    line-height: 1; font-weight: 600; letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  h1 em { font-style: italic; color: var(--teal); font-weight: 400; }
+
+  .lede {
+    font-size: 13px; color: var(--slate);
+    line-height: 1.5;
+  }
+
+  /* ============ STICKY PROGRESS ============ */
+  .sticky-bar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(250, 248, 243, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    margin: 0 -16px;
+    padding: 12px 16px;
+  }
+
+  .sticky-inner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .progress-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  .progress-bar-track {
+    flex: 1;
+    height: 3px;
+    background: var(--line);
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+  }
+
+  .progress-bar-fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: var(--teal);
+    width: 0;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .save-status {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.08em;
+    color: var(--success);
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .save-status.visible { opacity: 1; }
+
+  /* ============ CTA ROW ============ */
+  .cta-row {
+    display: flex;
+    gap: 8px;
+    margin: 16px 0 4px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    flex: 1;
+    min-width: 110px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    background: white;
+    color: var(--ink);
+    cursor: pointer;
+    border-radius: 2px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .btn-danger { color: var(--alert); border-color: var(--line); }
+
+  /* ============ SECTION ACCORDIONS ============ */
+  .section {
+    margin: 14px 0;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .section.complete { border-color: var(--teal); }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: 48px 1fr auto auto;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    cursor: pointer;
+    background: var(--paper);
+    transition: background 0.2s;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    color: inherit;
+  }
+  .section-header:active { background: var(--paper-warm); }
+
+  .section-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px; font-weight: 600; font-style: italic;
+    color: var(--gold); line-height: 1; opacity: 0.85;
+  }
+  .section.complete .section-num { color: var(--teal); }
+
+  .section-title-block { min-width: 0; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px; font-weight: 600;
+    margin-bottom: 2px;
+    line-height: 1.2;
+  }
+  .section-subtitle {
+    font-size: 11.5px; color: var(--slate);
+    line-height: 1.3;
+  }
+
+  .section-progress {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--mist);
+    white-space: nowrap;
+    text-align: right;
+  }
+  .section.complete .section-progress { color: var(--teal); }
+
+  .chev {
+    width: 20px; height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+  }
+  .section.open .chev { transform: rotate(180deg); }
+  .chev svg { width: 12px; height: 12px; stroke: var(--slate); }
+
+  .section-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .section.open .section-body { max-height: 12000px; }
+
+  .section-content {
+    padding: 4px 16px 16px;
+  }
+
+  /* ============ FIELDS ============ */
+  .field {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .field:last-child { border-bottom: none; }
+
+  label.field-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+    line-height: 1.35;
+  }
+  .field-label .req {
+    color: var(--alert);
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    margin-left: 4px;
+    letter-spacing: 0.06em;
+  }
+
+  .field-help {
+    font-size: 12px;
+    color: var(--slate);
+    line-height: 1.45;
+    margin-bottom: 10px;
+  }
+
+  /* ============ INPUTS ============ */
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  input[type="email"],
+  textarea,
+  select {
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;  /* 16px prevents iOS zoom */
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    background: white;
+    color: var(--ink);
+    border-radius: 2px;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  textarea {
+    min-height: 80px;
+    resize: vertical;
+    font-family: inherit;
+    line-height: 1.5;
+  }
+  select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234A5D5B' stroke-width='2' stroke-linecap='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+  }
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--teal);
+  }
+
+  /* ============ RADIO / CHECKBOX OPTIONS ============ */
+  .opt-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .opt:active { background: var(--paper); }
+  .opt input { position: absolute; opacity: 0; pointer-events: none; }
+
+  .opt-check {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    border: 1.5px solid var(--mist);
+    border-radius: 50%;
+    margin-top: 1px;
+    position: relative;
+    background: white;
+    transition: all 0.15s;
+  }
+  .opt-check.square {
+    border-radius: 3px;
+  }
+
+  .opt input:checked ~ .opt-check {
+    background: var(--teal);
+    border-color: var(--teal);
+  }
+  .opt input:checked ~ .opt-check::after {
+    content: '';
+    position: absolute;
+    left: 5px; top: 1px;
+    width: 6px; height: 11px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .opt input:checked ~ .opt-check.square::after {
+    left: 4px;
+    top: 0;
+  }
+  .opt:has(input:checked) {
+    border-color: var(--teal);
+    background: var(--teal-mist);
+  }
+
+  /* Yes/No segmented control */
+  .yesno {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .yesno .opt {
+    justify-content: center;
+    padding: 14px;
+    font-weight: 500;
+  }
+  .yesno .opt-check { display: none; }
+
+  /* ============ PHOTO UPLOAD ============ */
+  .photo-field {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .photo-input-wrap {
+    position: relative;
+    display: block;
+  }
+
+  .photo-input-wrap input[type="file"] {
+    position: absolute;
+    width: 0.1px; height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  .photo-input-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 18px;
+    background: var(--teal-mist);
+    border: 1.5px dashed var(--teal);
+    border-radius: 2px;
+    color: var(--teal-deep);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .photo-input-label:active { background: white; }
+  .photo-input-label svg { width: 18px; height: 18px; stroke: var(--teal); }
+
+  .photo-preview {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+  }
+  .photo-thumb {
+    position: relative;
+    aspect-ratio: 1;
+    background: var(--paper-warm);
+    border-radius: 2px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .photo-thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .photo-thumb .remove-photo {
+    position: absolute;
+    top: 4px; right: 4px;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border: none;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  /* ============ ALERTS ============ */
+  .info-callout {
+    background: linear-gradient(135deg, var(--gold-soft) 0%, var(--paper-warm) 100%);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 12.5px;
+    color: var(--slate);
+    line-height: 1.55;
+    font-style: italic;
+    border-radius: 2px;
+  }
+  .info-callout strong { color: var(--ink); font-style: normal; font-weight: 600; }
+
+  /* ============ MODAL ============ */
+  .modal-bg {
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 46, 44, 0.6);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-bg.show { display: flex; }
+  .modal {
+    background: white;
+    border-radius: 4px;
+    padding: 28px 24px;
+    max-width: 420px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  .modal h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+  .modal p {
+    font-size: 14px;
+    color: var(--slate);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .modal-cta { display: flex; gap: 8px; margin-top: 20px; }
+  .modal textarea {
+    margin-bottom: 12px;
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    padding: 36px 0 60px;
+    text-align: center;
+    border-top: 1px solid var(--line);
+    margin-top: 32px;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-style: italic; color: var(--teal);
+  }
+  .footer-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--mist); margin-top: 6px;
+  }
+
+  /* ============ DESKTOP ENHANCEMENTS ============ */
+  @media (min-width: 720px) {
+    .wrap { padding: 0 32px; }
+    header.top { padding: 36px 0 28px; }
+    h1 { font-size: 42px; }
+    .lede { font-size: 14px; }
+    .section-header { grid-template-columns: 60px 1fr auto auto; padding: 20px 24px; }
+    .section-num { font-size: 38px; }
+    .section-title { font-size: 20px; }
+    .section-subtitle { font-size: 13px; }
+    .section-content { padding: 4px 24px 20px; }
+  }
+
+  /* ============ PRINT ============ */
+  @media print {
+    body::before, .sticky-bar, .cta-row, .chev, footer, .photo-input-label { display: none; }
+    .section { break-inside: avoid; border: 1px solid #ccc; }
+    .section-body { max-height: none !important; }
+    .section.open .section-body { max-height: none !important; }
+    .section-body { max-height: none !important; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="eyebrow">Verandah · On-Site Walkthrough</div>
+    <h1>Property <em>Walkthrough</em></h1>
+    <p class="lede">Linda's in-person checklist. Captures only what's not already in AppFolio from the owner's Pre-Management Prep and Onboarding forms. All progress is auto-saved to this device — feel free to step away and resume.</p>
+  </header>
+
+  <div class="sticky-bar">
+    <div class="sticky-inner">
+      <span class="progress-text"><span id="completed-count">0</span> of <span id="total-count">0</span></span>
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-fill"></div></div>
+      <span class="save-status" id="save-status">Saved</span>
+    </div>
+  </div>
+
+  <div class="cta-row">
+    <button class="btn btn-primary" id="export-pdf-btn">Export PDF</button>
+    <button class="btn" id="export-email-btn">Email Pamela</button>
+    <button class="btn btn-danger" id="reset-btn">Reset</button>
+  </div>
+
+  <main id="form-root"></main>
+
+  <footer>
+    <div class="footer-brand">Verandah Properties</div>
+    <div class="footer-meta">On-Site Walkthrough · Linda's Field Tool</div>
+  </footer>
+
+</div>
+
+<!-- Reset confirmation modal -->
+<div class="modal-bg" id="reset-modal">
+  <div class="modal">
+    <h2>Reset everything?</h2>
+    <p>This will clear every field and uploaded photo for this property. You'll start fresh.</p>
+    <div class="modal-cta">
+      <button class="btn" id="reset-cancel">Cancel</button>
+      <button class="btn btn-danger" id="reset-confirm">Yes, reset all</button>
+    </div>
+  </div>
+</div>
+
+<!-- Email modal -->
+<div class="modal-bg" id="email-modal">
+  <div class="modal">
+    <h2>Send to Pamela</h2>
+    <p>This will open your default email app with a complete summary of the walkthrough. Photos are saved locally — they will not attach to the email automatically. You can attach them manually if needed.</p>
+    <div class="modal-cta">
+      <button class="btn" id="email-cancel">Cancel</button>
+      <button class="btn btn-primary" id="email-confirm">Open Email</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// FORM SCHEMA — every field, every option, every section
+// ============================================================
+// ============================================================
+// FORM SCHEMA — Only fields Linda captures on-site
+// Owner-submitted data from Pre-Management Prep + Onboarding
+// forms is already in AppFolio. This form does NOT duplicate.
+// ============================================================
+const SCHEMA = [
+  {
+    id: 's1', num: '01', title: 'Visit Information', subtitle: 'Basic context',
+    fields: [
+      { id: 'address', type: 'text', label: 'Property Address', required: true },
+      { id: 'owner_name', type: 'text', label: 'Owner Name(s)', required: true },
+      { id: 'visit_date', type: 'date', label: 'Walkthrough Date' },
+      { id: 'owner_present', type: 'yesno', label: 'Owner Present at Walkthrough?' }
+    ]
+  },
+  {
+    id: 's2', num: '02', title: 'Property Fundamentals', subtitle: 'Confirm what owner self-reported was accurate',
+    note: 'Owner self-reports on bed/bath/sqft can differ from reality. Confirm in person — these will be cross-checked against AppFolio.',
+    fields: [
+      { id: 'property_type', type: 'radio', label: 'Property Type — Confirmed', required: true,
+        options: ['Single-Family Home','Townhouse','Condo','Duplex','Garage Apartment','Other'] },
+      { id: 'year_built', type: 'number', label: 'Year Built — Confirmed', required: true },
+      { id: 'bedrooms', type: 'number', label: 'Bedrooms — Confirmed', required: true },
+      { id: 'bathrooms', type: 'number', label: 'Bathrooms — Confirmed', required: true,
+        help: 'Decimal format. 2.5 = 2 full + 1 half.' },
+      { id: 'sqft', type: 'number', label: 'Square Footage — Confirmed', required: true },
+      { id: 'garage_type', type: 'radio', label: 'Garage Type',
+        help: 'Owner already provided count via Onboarding form — confirm and add detail.',
+        options: ['None','1-Car Attached','2-Car Attached','3-Car Attached','Detached','Carport'] },
+      { id: 'fenced', type: 'radio', label: 'Fenced Yard',
+        options: ['Fully Fenced','Partially Fenced','Not Fenced'] },
+      { id: 'pool', type: 'radio', label: 'Pool / Spa',
+        options: ['Private Pool','Private Pool with Spa','Spa Only','No Pool'] },
+      { id: 'stories', type: 'radio', label: 'Number of Stories',
+        options: ['1','2','3','Multi-level'] }
+    ]
+  },
+  {
+    id: 's3', num: '03', title: 'Appliances Inventory', subtitle: 'What stays vs goes — clarify with owner on-site',
+    note: 'Counter-top microwaves, portable washer/dryers, and standalone fridges may be personal property. Confirm what stays. If counter-top item is left and named in the lease, owner takes on repair/replacement responsibility.',
+    fields: [
+      { id: 'range', type: 'radio', label: 'Range / Stove',
+        options: ['Gas','Electric','Induction','None Present'] },
+      { id: 'fridge', type: 'radio', label: 'Refrigerator',
+        options: ['Present and Stays','Present but Owner Taking','Not Present'] },
+      { id: 'dishwasher', type: 'yesno', label: 'Dishwasher' },
+      { id: 'disposal', type: 'yesno', label: 'Garbage Disposal' },
+      { id: 'microwave', type: 'radio', label: 'Microwave Type — Critical Distinction',
+        help: 'Built-in/over-the-range = fixture, conveys. Counter-top = personal property — confirm with owner.',
+        options: ['Built-in / Over-the-Range (fixture, stays)','Counter-top (owner taking)','Counter-top (owner leaving — confirm in writing)','None'] },
+      { id: 'range_hood', type: 'radio', label: 'Range Hood / Vent',
+        options: ['Vented to outside','Recirculating','Microwave doubles as hood','None'] },
+      { id: 'double_oven', type: 'yesno', label: 'Double Oven / Wall Oven' },
+      { id: 'washer_detail', type: 'radio', label: 'Washer — Stays or Goes?',
+        help: 'Owner already indicated washer/dryer included via Pre-Management form — confirm details on-site.',
+        options: ['Present and Stays','Present but Owner Taking','Stackable','Not Present'] },
+      { id: 'dryer_detail', type: 'radio', label: 'Dryer — Type & Stays?',
+        options: ['Electric — Stays','Gas — Stays','Owner Taking','Not Present'] },
+      { id: 'wine_fridge', type: 'text', label: 'Wine Fridge / Beverage Cooler / Ice Maker',
+        help: 'Built-in unit conveys; freestanding may not. Confirm.' },
+      { id: 'compactor', type: 'yesno', label: 'Trash Compactor' },
+      { id: 'water_softener', type: 'text', label: 'Water Softener / Filtration System',
+        help: 'If present, who maintains the filters and salt?' },
+      { id: 'appliance_notes', type: 'textarea', label: 'Notes on Appliance Condition / Owner Verbal Commitments',
+        help: 'Anything where owner committed to leave, take, or replace.' }
+    ]
+  },
+  {
+    id: 's4', num: '04', title: 'Fixtures & Features', subtitle: 'Anything attached that conveys',
+    fields: [
+      { id: 'fan_count', type: 'number', label: 'Ceiling Fans — Total Count' },
+      { id: 'fan_locations', type: 'text', label: 'Ceiling Fan Locations',
+        help: 'e.g., "Living room, primary bedroom, all 3 bedrooms, lanai".' },
+      { id: 'window_treatments', type: 'radio', label: 'Window Treatments',
+        help: 'Verandah standard: blinds or shades that convey. Curtains may stay if owner wishes — must be documented in lease per management agreement.',
+        options: ['Blinds throughout','Plantation Shutters','Roller Shades','Combination','Curtains conveying (owner confirms in writing)','None — needs to be added'] },
+      { id: 'light_fixtures', type: 'textarea', label: 'Light Fixtures Notable / Designer / Chandeliers',
+        help: 'Owner removing any specific fixtures? Note replacement plan.' },
+      { id: 'smart_home', type: 'multi', label: 'Smart Home Features',
+        options: ['Smart Thermostat (Nest, Ecobee)','Smart Lock','Video Doorbell','Smart Garage Opener','Smart Sprinkler','Whole-Home Audio','Smart Lighting','Security System','None'] },
+      { id: 'smart_home_notes', type: 'textarea', label: 'Smart Home — Stays or Goes?',
+        help: 'Some smart devices are tied to owner accounts. Note transfer/removal plan for each.' },
+      { id: 'built_ins', type: 'textarea', label: 'Built-Ins (cabinetry, shelving, desks, entertainment centers)' },
+      { id: 'closets', type: 'radio', label: 'Closet Systems',
+        options: ['Standard wire shelving','Custom wood (California Closets style)','Walk-ins with built-ins','Mixed'] },
+      { id: 'fireplace', type: 'radio', label: 'Fireplace',
+        options: ['Wood-burning','Gas','Electric','Decorative only','None'] },
+      { id: 'tv_brackets', type: 'text', label: 'Mounted TVs / TV Brackets',
+        help: 'Owner taking TV but leaving wall mount? If TV stays, document make/model/condition.' },
+      { id: 'other_fixtures', type: 'textarea', label: 'Other Notable Fixtures',
+        help: 'Wet bar, bidets, custom mirrors, art lighting.' }
+    ]
+  },
+  {
+    id: 's5', num: '05', title: 'Flooring by Room', subtitle: 'Feeds directly into the listing',
+    fields: [
+      { id: 'floor_living', type: 'select', label: 'Living Room / Great Room',
+        options: ['Tile','Hardwood','Engineered Wood','LVP','Carpet','Laminate','Stone'] },
+      { id: 'floor_kitchen', type: 'select', label: 'Kitchen',
+        options: ['Tile','Hardwood','Engineered Wood','LVP','Carpet','Laminate','Stone'] },
+      { id: 'floor_dining', type: 'select', label: 'Dining Room / Eat-in',
+        options: ['Tile','Hardwood','Engineered Wood','LVP','Carpet','Laminate','Stone'] },
+      { id: 'floor_primary_bed', type: 'select', label: 'Primary Bedroom',
+        options: ['Tile','Hardwood','Engineered Wood','LVP','Carpet','Laminate','Stone'] },
+      { id: 'floor_secondary_beds', type: 'select', label: 'Secondary Bedrooms',
+        options: ['Tile','Hardwood','Engineered Wood','LVP','Carpet','Laminate','Stone','Mixed'] },
+      { id: 'floor_baths', type: 'select', label: 'Bathrooms',
+        options: ['Tile','Stone','LVP','Other'] },
+      { id: 'floor_hallways', type: 'select', label: 'Hallways & Common Areas',
+        options: ['Tile','Hardwood','Engineered Wood','LVP','Carpet','Laminate','Stone'] },
+      { id: 'floor_office', type: 'select', label: 'Office / Den / Bonus Room',
+        options: ['Tile','Hardwood','Engineered Wood','LVP','Carpet','Laminate','Stone','N/A'] },
+      { id: 'floor_notes', type: 'textarea', label: 'Flooring Notes / Condition',
+        help: 'Recently updated? Mismatch? Wear concerns?' }
+    ]
+  },
+  {
+    id: 's6', num: '06', title: 'Kitchen & Bath Finishes', subtitle: 'Marketing-critical detail',
+    fields: [
+      { id: 'counters', type: 'radio', label: 'Kitchen Countertops',
+        options: ['Granite','Quartz','Marble','Butcher Block','Laminate','Solid Surface (Corian)','Concrete','Other'] },
+      { id: 'cabinets', type: 'radio', label: 'Kitchen Cabinetry',
+        options: ['Wood — Upgraded','Wood — Standard','Painted','White','Shaker style','Builder grade','Custom'] },
+      { id: 'backsplash', type: 'radio', label: 'Kitchen Backsplash',
+        options: ['Tile','Subway','Stone','Glass','Painted','None'] },
+      { id: 'kitchen_layout', type: 'multi', label: 'Kitchen Layout Features',
+        options: ['Island','Breakfast Bar','Walk-in Pantry','Closet Pantry','Butler Pantry','Eat-in Kitchen','Open to Living/Family','Galley'] },
+      { id: 'appliance_finish', type: 'radio', label: 'Kitchen Appliance Finish',
+        options: ['Stainless Steel','Black Stainless','White','Black','Mixed','Panel-Ready'] },
+      { id: 'primary_bath_layout', type: 'multi', label: 'Primary Bath — Layout',
+        options: ['Walk-in Shower','Tub Only','Tub/Shower Combo','Garden Tub + Separate Shower','Double Vanity','Single Vanity','Water Closet (separate toilet room)'] },
+      { id: 'primary_bath_finishes', type: 'textarea', label: 'Primary Bath — Finishes',
+        help: 'Counters, tile, hardware finishes.' },
+      { id: 'secondary_baths', type: 'textarea', label: 'Secondary Bathrooms — General Note',
+        help: 'e.g., "Both secondary baths are tub/shower combo with white tile and standard vanities."' }
+    ]
+  },
+  {
+    id: 's7', num: '07', title: 'Outdoor Features', subtitle: 'Patio, lanai, yard, exterior',
+    fields: [
+      { id: 'outdoor_living', type: 'multi', label: 'Outdoor Living Spaces',
+        options: ['Open Patio','Covered Patio','Screened Patio','Screened Lanai','Florida Room','Sunroom','Open Balcony','Covered Balcony','Deck','None'] },
+      { id: 'outdoor_kitchen', type: 'text', label: 'Outdoor Kitchen / Grill Setup',
+        help: 'Built-in or portable? Stays?' },
+      { id: 'pool_features', type: 'textarea', label: 'Pool Equipment / Pool Features',
+        help: 'Heated, salt water, screen enclosure, deck features. Skip if no pool.' },
+      { id: 'yard_features', type: 'multi', label: 'Yard Features',
+        options: ['Mature trees','Landscaped beds','Fruit trees','Garden area','Storage shed','Fire pit','Playground equipment','Hot tub'] },
+      { id: 'storage_shed', type: 'text', label: 'Storage Shed / Detached Structures',
+        help: 'Note condition and whether contents are being removed.' },
+      { id: 'driveway', type: 'radio', label: 'Driveway / Parking',
+        options: ['Concrete driveway','Pavers','Asphalt','Garage parking only','Street parking','Designated assigned spaces'] }
+    ]
+  },
+  {
+    id: 's8', num: '08', title: 'Initial Reference Photos', subtitle: 'Pre-marketing reference shots — not the listing photos',
+    note: 'These are internal reference shots. Pro photography is scheduled separately by Megan once rent-ready is declared. Linda\'s shots help Pamela draft marketing copy.',
+    fields: [
+      { id: 'photo_front', type: 'photo', label: 'Front Exterior',
+        help: 'Front of home with landscaping or entryway.' },
+      { id: 'photo_living', type: 'photo', label: 'Living Room / Great Room' },
+      { id: 'photo_kitchen_wide', type: 'photo', label: 'Kitchen — Wide Shot' },
+      { id: 'photo_kitchen_detail', type: 'photo', label: 'Kitchen — Detail (countertops, appliances)' },
+      { id: 'photo_dining', type: 'photo', label: 'Dining Area' },
+      { id: 'photo_primary_bed', type: 'photo', label: 'Primary Bedroom' },
+      { id: 'photo_primary_bath', type: 'photo', label: 'Primary Bath' },
+      { id: 'photo_secondary_beds', type: 'photo', label: 'Secondary Bedrooms' },
+      { id: 'photo_secondary_baths', type: 'photo', label: 'Secondary Bathrooms' },
+      { id: 'photo_outdoor', type: 'photo', label: 'Outdoor / Patio / Lanai / Pool' },
+      { id: 'photo_garage', type: 'photo', label: 'Garage Interior',
+        help: 'Includes water heater, electrical panel — vendor reference.' },
+      { id: 'photo_flagged', type: 'photo', label: 'Anything Notable / Worth Flagging',
+        help: 'Damage, unique feature, condition concern.' }
+    ]
+  },
+  {
+    id: 's9', num: '09', title: 'Property Special Notes', subtitle: 'Anything unique that doesn\'t fit elsewhere',
+    fields: [
+      { id: 'owner_concerns', type: 'textarea', label: 'Owner Concerns or Sensitivities',
+        help: 'e.g., "Owner attached to heirloom dining room chandelier — confirmed she\'ll remove and replace."' },
+      { id: 'property_quirks', type: 'textarea', label: 'Property Quirks Tenants Should Know',
+        help: 'e.g., "Garage door sticks in humidity," "Front deadbolt sticks unless lifted while turning."' },
+      { id: 'verbal_commitments', type: 'textarea', label: 'Things Owner Said That Linda Wants to Document',
+        help: 'Verbal commitments, preferences, anything that should be on the record.' },
+      { id: 'rent_ready_outstanding', type: 'textarea', label: 'Rent-Ready Items Outstanding',
+        help: 'Owner is responsible — but Linda\'s notes help track and follow up.' },
+      { id: 'overall_impression', type: 'textarea', label: 'Linda\'s Overall Impression',
+        help: 'Will it show well? Concerns about marketability or tenant fit?' }
+    ]
+  }
+];
+
+// ============================================================
+// STORAGE
+// ============================================================
+const STORAGE_KEY = 'verandah-walkthrough-v2';
+let state = {};
+let saveTimer = null;
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) state = JSON.parse(raw);
+  } catch (e) {
+    state = {};
+    console.error('Load failed', e);
+  }
+}
+
+function saveState() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      flashSavedStatus();
+    } catch (e) {
+      console.error('Save failed', e);
+      alert('Storage is full or unavailable. Your photos may be too large to save locally. Try removing some photos.');
+    }
+  }, 250);
+}
+
+function flashSavedStatus() {
+  const el = document.getElementById('save-status');
+  el.textContent = 'Saved';
+  el.classList.add('visible');
+  clearTimeout(window._saveFlash);
+  window._saveFlash = setTimeout(() => el.classList.remove('visible'), 1500);
+}
+
+// ============================================================
+// RENDERING
+// ============================================================
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderForm() {
+  const root = document.getElementById('form-root');
+  root.innerHTML = SCHEMA.map((section, sIdx) => {
+    const isOpen = sIdx === 0; // first section open by default
+    return `
+      <article class="section ${isOpen ? 'open' : ''}" data-section="${section.id}">
+        <button class="section-header" data-toggle="${section.id}" type="button">
+          <span class="section-num">${section.num}</span>
+          <span class="section-title-block">
+            <span class="section-title">${escapeHtml(section.title)}</span>
+            <span class="section-subtitle">${escapeHtml(section.subtitle)}</span>
+          </span>
+          <span class="section-progress" data-section-progress="${section.id}">0 / ${section.fields.length}</span>
+          <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="section-body">
+          <div class="section-content">
+            ${section.note ? `<div class="info-callout">${escapeHtml(section.note)}</div>` : ''}
+            ${section.fields.map(f => renderField(f)).join('')}
+          </div>
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  // Wire up section toggles
+  root.querySelectorAll('[data-toggle]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.toggle;
+      const section = root.querySelector(`[data-section="${id}"]`);
+      section.classList.toggle('open');
+    });
+  });
+
+  // Wire up all field inputs
+  wireFields();
+
+  // Restore state into DOM
+  restoreToDOM();
+
+  updateAllProgress();
+}
+
+function renderField(f) {
+  const helpHtml = f.help ? `<div class="field-help">${escapeHtml(f.help)}</div>` : '';
+  const reqHtml = f.required ? '<span class="req">REQ</span>' : '';
+
+  switch (f.type) {
+    case 'text':
+    case 'number':
+    case 'date':
+    case 'email': {
+      return `
+        <div class="field" data-field="${f.id}">
+          <label class="field-label" for="f-${f.id}">${escapeHtml(f.label)}${reqHtml}</label>
+          ${helpHtml}
+          <input type="${f.type}" id="f-${f.id}" data-field-input="${f.id}" inputmode="${f.type === 'number' ? 'decimal' : 'text'}" />
+        </div>
+      `;
+    }
+    case 'textarea': {
+      return `
+        <div class="field" data-field="${f.id}">
+          <label class="field-label" for="f-${f.id}">${escapeHtml(f.label)}${reqHtml}</label>
+          ${helpHtml}
+          <textarea id="f-${f.id}" data-field-input="${f.id}" rows="3"></textarea>
+        </div>
+      `;
+    }
+    case 'select': {
+      return `
+        <div class="field" data-field="${f.id}">
+          <label class="field-label" for="f-${f.id}">${escapeHtml(f.label)}${reqHtml}</label>
+          ${helpHtml}
+          <select id="f-${f.id}" data-field-input="${f.id}">
+            <option value="">— Select —</option>
+            ${f.options.map(o => `<option value="${escapeHtml(o)}">${escapeHtml(o)}</option>`).join('')}
+          </select>
+        </div>
+      `;
+    }
+    case 'radio': {
+      return `
+        <div class="field" data-field="${f.id}">
+          <span class="field-label">${escapeHtml(f.label)}${reqHtml}</span>
+          ${helpHtml}
+          <div class="opt-list">
+            ${f.options.map(o => `
+              <label class="opt">
+                <input type="radio" name="r-${f.id}" value="${escapeHtml(o)}" data-field-input="${f.id}" data-input-kind="radio" />
+                <span class="opt-check"></span>
+                <span>${escapeHtml(o)}</span>
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+    case 'multi': {
+      return `
+        <div class="field" data-field="${f.id}">
+          <span class="field-label">${escapeHtml(f.label)}${reqHtml}</span>
+          ${helpHtml}
+          <div class="opt-list">
+            ${f.options.map(o => `
+              <label class="opt">
+                <input type="checkbox" name="m-${f.id}" value="${escapeHtml(o)}" data-field-input="${f.id}" data-input-kind="multi" />
+                <span class="opt-check square"></span>
+                <span>${escapeHtml(o)}</span>
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+    case 'yesno': {
+      return `
+        <div class="field" data-field="${f.id}">
+          <span class="field-label">${escapeHtml(f.label)}${reqHtml}</span>
+          ${helpHtml}
+          <div class="yesno opt-list">
+            <label class="opt">
+              <input type="radio" name="y-${f.id}" value="Yes" data-field-input="${f.id}" data-input-kind="radio" />
+              <span class="opt-check"></span>
+              <span>Yes</span>
+            </label>
+            <label class="opt">
+              <input type="radio" name="y-${f.id}" value="No" data-field-input="${f.id}" data-input-kind="radio" />
+              <span class="opt-check"></span>
+              <span>No</span>
+            </label>
+          </div>
+        </div>
+      `;
+    }
+    case 'photo': {
+      return `
+        <div class="photo-field" data-field="${f.id}">
+          <label class="field-label">${escapeHtml(f.label)}${reqHtml}</label>
+          ${helpHtml}
+          <div class="photo-input-wrap">
+            <input type="file" id="f-${f.id}" data-field-input="${f.id}" data-input-kind="photo" accept="image/*" capture="environment" multiple />
+            <label class="photo-input-label" for="f-${f.id}">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              Take Photo / Add Image
+            </label>
+          </div>
+          <div class="photo-preview" data-photo-preview="${f.id}"></div>
+        </div>
+      `;
+    }
+  }
+  return '';
+}
+
+// ============================================================
+// FIELD WIRING
+// ============================================================
+function wireFields() {
+  // Text/number/date/textarea/select/email
+  document.querySelectorAll('[data-field-input]:not([data-input-kind])').forEach(input => {
+    const id = input.dataset.fieldInput;
+    input.addEventListener('input', () => {
+      state[id] = input.value;
+      saveState();
+      updateProgressForField(id);
+    });
+    input.addEventListener('change', () => {
+      state[id] = input.value;
+      saveState();
+      updateProgressForField(id);
+    });
+  });
+
+  // Radios (including yesno)
+  document.querySelectorAll('[data-input-kind="radio"]').forEach(input => {
+    input.addEventListener('change', () => {
+      const id = input.dataset.fieldInput;
+      state[id] = input.value;
+      saveState();
+      updateProgressForField(id);
+    });
+  });
+
+  // Multi-select checkboxes
+  document.querySelectorAll('[data-input-kind="multi"]').forEach(input => {
+    input.addEventListener('change', () => {
+      const id = input.dataset.fieldInput;
+      const selected = Array.from(document.querySelectorAll(`input[data-input-kind="multi"][data-field-input="${id}"]:checked`)).map(i => i.value);
+      state[id] = selected;
+      saveState();
+      updateProgressForField(id);
+    });
+  });
+
+  // Photo uploads
+  document.querySelectorAll('[data-input-kind="photo"]').forEach(input => {
+    input.addEventListener('change', e => {
+      const id = input.dataset.fieldInput;
+      const files = Array.from(e.target.files);
+      processPhotos(id, files);
+    });
+  });
+}
+
+// ============================================================
+// PHOTO HANDLING — compress to dataURL
+// ============================================================
+async function processPhotos(fieldId, files) {
+  if (!state[fieldId]) state[fieldId] = [];
+  for (const file of files) {
+    try {
+      const dataUrl = await compressImage(file);
+      state[fieldId].push({ name: file.name, data: dataUrl });
+    } catch (e) {
+      console.error('Photo failed', e);
+    }
+  }
+  renderPhotosForField(fieldId);
+  saveState();
+  updateProgressForField(fieldId);
+}
+
+function compressImage(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        const maxDim = 1280;
+        let w = img.width;
+        let h = img.height;
+        if (w > maxDim || h > maxDim) {
+          const ratio = Math.min(maxDim / w, maxDim / h);
+          w = Math.round(w * ratio);
+          h = Math.round(h * ratio);
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', 0.78));
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderPhotosForField(fieldId) {
+  const container = document.querySelector(`[data-photo-preview="${fieldId}"]`);
+  if (!container) return;
+  const photos = state[fieldId] || [];
+  container.innerHTML = photos.map((p, i) => `
+    <div class="photo-thumb">
+      <img src="${p.data}" alt="${escapeHtml(p.name)}" />
+      <button class="remove-photo" data-remove-photo="${fieldId}" data-photo-index="${i}" type="button" aria-label="Remove photo">×</button>
+    </div>
+  `).join('');
+
+  container.querySelectorAll('[data-remove-photo]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const fId = btn.dataset.removePhoto;
+      const idx = parseInt(btn.dataset.photoIndex, 10);
+      state[fId].splice(idx, 1);
+      if (state[fId].length === 0) delete state[fId];
+      renderPhotosForField(fId);
+      saveState();
+      updateProgressForField(fId);
+    });
+  });
+}
+
+// ============================================================
+// RESTORE STATE TO DOM
+// ============================================================
+function restoreToDOM() {
+  SCHEMA.forEach(section => {
+    section.fields.forEach(f => {
+      const val = state[f.id];
+      if (val == null || val === '') return;
+
+      switch (f.type) {
+        case 'text':
+        case 'number':
+        case 'date':
+        case 'email':
+        case 'textarea':
+        case 'select': {
+          const el = document.querySelector(`[data-field-input="${f.id}"]`);
+          if (el) el.value = val;
+          break;
+        }
+        case 'radio':
+        case 'yesno': {
+          const el = document.querySelector(`[data-field-input="${f.id}"][value="${CSS.escape(val)}"]`);
+          if (el) el.checked = true;
+          break;
+        }
+        case 'multi': {
+          if (Array.isArray(val)) {
+            val.forEach(v => {
+              const el = document.querySelector(`input[data-input-kind="multi"][data-field-input="${f.id}"][value="${CSS.escape(v)}"]`);
+              if (el) el.checked = true;
+            });
+          }
+          break;
+        }
+        case 'photo': {
+          renderPhotosForField(f.id);
+          break;
+        }
+      }
+    });
+  });
+}
+
+// ============================================================
+// PROGRESS TRACKING
+// ============================================================
+function isFieldFilled(f) {
+  const val = state[f.id];
+  if (val == null) return false;
+  if (Array.isArray(val)) return val.length > 0;
+  if (typeof val === 'string') return val.trim() !== '';
+  return Boolean(val);
+}
+
+function updateProgressForField(fieldId) {
+  // Find which section this field is in
+  const section = SCHEMA.find(s => s.fields.some(f => f.id === fieldId));
+  if (section) updateProgressForSection(section);
+  updateOverallProgress();
+}
+
+function updateProgressForSection(section) {
+  const filled = section.fields.filter(f => isFieldFilled(f)).length;
+  const total = section.fields.length;
+  const el = document.querySelector(`[data-section-progress="${section.id}"]`);
+  if (el) el.textContent = `${filled} / ${total}`;
+  const sectionEl = document.querySelector(`[data-section="${section.id}"]`);
+  if (sectionEl) sectionEl.classList.toggle('complete', filled === total);
+}
+
+function updateOverallProgress() {
+  let total = 0, filled = 0;
+  SCHEMA.forEach(section => {
+    section.fields.forEach(f => {
+      total++;
+      if (isFieldFilled(f)) filled++;
+    });
+  });
+  document.getElementById('completed-count').textContent = filled;
+  document.getElementById('total-count').textContent = total;
+  document.getElementById('progress-fill').style.width = total > 0 ? (filled/total*100) + '%' : '0%';
+}
+
+function updateAllProgress() {
+  SCHEMA.forEach(section => updateProgressForSection(section));
+  updateOverallProgress();
+}
+
+// ============================================================
+// EXPORT — Email summary
+// ============================================================
+function buildSummary() {
+  const lines = [];
+  const address = state.address || '[no address]';
+  lines.push(`VERANDAH ON-SITE WALKTHROUGH`);
+  lines.push(`Property: ${address}`);
+  if (state.owner_name) lines.push(`Owner: ${state.owner_name}`);
+  if (state.visit_date) lines.push(`Date: ${state.visit_date}`);
+  lines.push('');
+  lines.push('=' .repeat(50));
+  lines.push('');
+
+  SCHEMA.forEach(section => {
+    const sectionLines = [];
+    section.fields.forEach(f => {
+      const val = state[f.id];
+      if (val == null || val === '' || (Array.isArray(val) && val.length === 0)) return;
+      if (f.type === 'photo') {
+        sectionLines.push(`  ${f.label}: ${val.length} photo(s) saved locally`);
+      } else if (Array.isArray(val)) {
+        sectionLines.push(`  ${f.label}: ${val.join(', ')}`);
+      } else {
+        sectionLines.push(`  ${f.label}: ${val}`);
+      }
+    });
+    if (sectionLines.length > 0) {
+      lines.push(`${section.num} — ${section.title.toUpperCase()}`);
+      lines.push(...sectionLines);
+      lines.push('');
+    }
+  });
+
+  return lines.join('\n');
+}
+
+document.getElementById('export-email-btn').addEventListener('click', () => {
+  document.getElementById('email-modal').classList.add('show');
+});
+
+document.getElementById('email-cancel').addEventListener('click', () => {
+  document.getElementById('email-modal').classList.remove('show');
+});
+
+document.getElementById('email-confirm').addEventListener('click', () => {
+  const summary = buildSummary();
+  const address = state.address || 'property';
+  const subject = encodeURIComponent(`Walkthrough: ${address}`);
+  const body = encodeURIComponent(summary);
+  window.location.href = `mailto:pamela@verandahproperties.com?subject=${subject}&body=${body}`;
+  document.getElementById('email-modal').classList.remove('show');
+});
+
+document.getElementById('export-pdf-btn').addEventListener('click', () => {
+  // Open all sections so they print
+  document.querySelectorAll('.section').forEach(s => s.classList.add('open'));
+  setTimeout(() => window.print(), 200);
+});
+
+// ============================================================
+// RESET
+// ============================================================
+document.getElementById('reset-btn').addEventListener('click', () => {
+  document.getElementById('reset-modal').classList.add('show');
+});
+
+document.getElementById('reset-cancel').addEventListener('click', () => {
+  document.getElementById('reset-modal').classList.remove('show');
+});
+
+document.getElementById('reset-confirm').addEventListener('click', () => {
+  state = {};
+  try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+  document.getElementById('reset-modal').classList.remove('show');
+  renderForm();
+});
+
+// ============================================================
+// INIT
+// ============================================================
+loadState();
+renderForm();
+
+</script>
+
+</body>
+</html>
